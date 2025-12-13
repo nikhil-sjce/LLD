@@ -1,0 +1,231 @@
+---
+
+# 🏗️ Frontend Application Architecture
+
+**(Turbo + Vite + React + TypeScript + Vitest)**
+
+---
+
+## 1️⃣ One-Line Overview (Start with this)
+
+> “The application is a modular, TypeScript-first React frontend built using Vite for fast builds, Turbo for monorepo task orchestration, and Vitest for testing. The architecture emphasizes separation of concerns, scalability, and developer productivity.”
+
+---
+
+## 2️⃣ High-Level Architecture Diagram (Explain Verbally)
+
+```
+Monorepo (Turbo)
+│
+├── apps/
+│   └── web/          → React + Vite application
+│
+├── packages/
+│   ├── ui/           → Shared UI components
+│   ├── utils/        → Common utilities
+│   ├── config/       → Shared TS / ESLint configs
+│   └── api-client/   → API layer (optional)
+│
+└── turbo.json        → Task pipeline
+```
+
+---
+
+## 3️⃣ Why Turbo? (Monorepo Layer)
+
+### What Turbo Does
+
+* Orchestrates **build / test / lint**
+* Caches tasks
+* Runs tasks in parallel
+
+### How You Explain
+
+> “Turbo is used to manage the monorepo efficiently. It ensures only affected apps and packages are rebuilt or tested, which keeps CI and local development fast.”
+
+---
+
+## 4️⃣ Web App Architecture (Vite + React)
+
+```
+apps/web/
+│
+├── src/
+│   ├── components/     → Reusable UI components
+│   ├── pages/          → Route-level components
+│   ├── hooks/          → Custom hooks
+│   ├── services/       → API & business logic
+│   ├── store/          → State management
+│   ├── utils/          → Helpers
+│   ├── styles/         → Global styles
+│   ├── tests/          → Component & unit tests
+│   ├── main.tsx
+│   └── App.tsx
+│
+├── vite.config.ts
+└── tsconfig.json
+```
+
+---
+
+## 5️⃣ Why Vite? (Build Layer)
+
+### Responsibilities
+
+* Dev server
+* Bundling
+* HMR
+
+### How to Say It
+
+> “Vite provides extremely fast cold starts and hot module replacement by leveraging native ES modules. This improves developer experience significantly compared to traditional bundlers.”
+
+---
+
+## 6️⃣ Component Architecture (React)
+
+### Pattern Used
+
+* **Functional components**
+* **Hooks-based logic**
+* **Composition over inheritance**
+
+```
+Component
+├── UI (JSX)
+├── Hooks (logic)
+└── Styles
+```
+
+### Example Explanation
+
+> “Each component focuses on rendering and delegates logic to hooks, making components predictable and testable.”
+
+---
+
+## 7️⃣ State Management Strategy
+
+### Levels of State
+
+| Type         | Solution                      |
+| ------------ | ----------------------------- |
+| Local        | `useState`, `useReducer`      |
+| Shared UI    | Context + custom hooks        |
+| Server state | React Query / custom services |
+
+### Interview Line
+
+> “State is scoped to the lowest possible level. Context is used only where global access is required.”
+
+---
+
+## 8️⃣ API / Business Logic Layer
+
+```
+services/
+├── apiClient.ts
+├── userService.ts
+└── authService.ts
+```
+
+### Why Separate?
+
+* Avoids fat components
+* Improves testability
+* Easier mocking
+
+> “Components never call APIs directly; they depend on service functions.”
+
+---
+
+## 9️⃣ TypeScript Strategy
+
+### Key Principles
+
+* Strict typing
+* Shared types across packages
+* Interfaces for contracts
+
+> “TypeScript enforces contracts between components, services, and APIs, reducing runtime bugs.”
+
+---
+
+## 🔟 Testing Architecture (Vitest)
+
+```
+tests/
+├── unit/
+├── components/
+└── hooks/
+```
+
+### What Vitest Tests
+
+* Business logic
+* Hooks
+* Components
+
+> “Vitest integrates seamlessly with Vite, providing fast, Jest-like testing with minimal configuration.”
+
+---
+
+## 1️⃣1️⃣ Turbo + Testing Flow
+
+```
+turbo run test
+│
+├── utils tests
+├── ui tests
+└── web tests
+```
+
+> “Turbo runs tests only for impacted packages, saving CI time.”
+
+---
+
+## 1️⃣2️⃣ Build & Deployment Flow
+
+```
+Developer
+→ Vite Dev Server
+→ Turbo Build
+→ CI Cache
+→ Production Bundle
+```
+
+---
+
+## 1️⃣3️⃣ Non-Functional Concerns
+
+| Concern         | Solution                    |
+| --------------- | --------------------------- |
+| Performance     | Code splitting, memoization |
+| Scalability     | Monorepo + shared packages  |
+| Maintainability | Clear folder boundaries     |
+| DX              | Vite + Turbo                |
+| Testability     | Vitest + isolated logic     |
+
+---
+
+## 1️⃣4️⃣ Final Interview Closing Statement (Important)
+
+> “This architecture allows us to scale teams and features independently, ensures fast feedback loops for developers, and keeps the codebase maintainable through clear separation of concerns.”
+
+---
+
+## ⏱️ How Long This Explanation Takes
+
+* **Short version:** 90 seconds
+* **Detailed version:** 3–4 minutes
+
+---
+
+If you want next:
+
+* **Whiteboard diagram**
+* **Short 60-second answer**
+* **LLD vs HLD explanation**
+* **Common follow-up questions**
+* **Trade-offs & alternatives**
+
+Just tell me 👍
